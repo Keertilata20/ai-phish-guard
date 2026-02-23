@@ -6,9 +6,63 @@
 </head>
 <body>
     <div class="container">
+        <!-- YOUR LOGO.PNG -->
+        <img src="/static/logo.png" alt="AI Phish Guard" class="logo">
+        
         <h1> AI Phish Guard</h1>
         <p>Zero-shot phishing detection API</p>
-        <a href="/docs" class="btn">Try API →</a>
+        
+        <!-- WORKING URL SCANNER -->
+        <div class="demo-section">
+            <input type="text" id="urlInput" placeholder="https://fake-login.com">
+            <button onclick="scanUrl()" class="btn"> SCAN NOW</button>
+        </div>
+        
+        <p><a href="/docs" class="btn secondary">API Documentation →</a></p>
+        
+        <!-- RESULTS HERE -->
+        <div id="result"></div>
     </div>
+
+    <script>
+        async function scanUrl() {
+            const url = document.getElementById('urlInput').value;
+            const result = document.getElementById('result');
+            
+            if (!url) return result.innerHTML = '<p style="color:orange">Enter URL first!</p>';
+            
+            result.innerHTML = ' Scanning...';
+            
+            try {
+                const response = await fetch('/scan', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({url})
+                });
+                const data = await response.json();
+                
+                const score = (data.analysis.phishing_score * 100).toFixed(0);
+                const risk = data.analysis.risk;
+                
+                if (risk === 'HIGH') {
+                    result.innerHTML = `
+                        <div style="background:#ff4757;color:white;padding:20px;border-radius:10px;">
+                            <h3> PHISHING DETECTED!</h3>
+                            <p>Risk Score: ${score}%</p>
+                        </div>
+                    `;
+                } else {
+                    result.innerHTML = `
+                        <div style="background:#2ed573;color:white;padding:20px;border-radius:10px;">
+                            <h3> SAFE URL</h3>
+                            <p>Risk Score: ${score}%</p>
+                        </div>
+                    `;
+                }
+            } catch(e) {
+                result.innerHTML = '<p style="color:red">Scan failed</p>';
+            }
+        }
+    </script>
 </body>
 </html>
