@@ -16,6 +16,6 @@
 - Enron dataset and PhishTank validation
 
 ## Project Status
-- Model prototype complete  
+- Model prototype in progress 
 - Flask web demo  
 - Hindi language support
