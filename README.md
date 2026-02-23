@@ -41,14 +41,7 @@
 ##  AI Phish Guard - Live Demo
 
 **- Terminal**
-<img width="1174" height="246" alt="image" src="https://github.com/user-attachments/assets/b4bca548-1744-410e-9870-62bcdb61815b" />
-
-
-
-
-**- API Response**
-<img width="1186" height="549" alt="image" src="https://github.com/user-attachments/assets/d31d50c8-b28b-412a-b76d-0a4b0dc96ed3" />
-
+<img width="1186" height="549" alt="image" src="https://github.com/user-attachments/assets/5b7e8395-0120-47d5-8862-bea07ea6a6a7" />
 
 
 
@@ -59,9 +52,10 @@
 
 
 
-
-**- Swagger Docs**
-<img width="1919" height="957" alt="image" src="https://github.com/user-attachments/assets/6ed44932-b55f-4176-aadc-8bae78d72636" />
+**- API Response Example**
+<img width="1919" height="1016" alt="image" src="https://github.com/user-attachments/assets/548917cb-bb64-41d8-b318-b00e32286d2f" />
+<img width="1497" height="819" alt="image" src="https://github.com/user-attachments/assets/9ed839b7-2281-43a0-9247-84eb5c77bc86" />
+<img width="1354" height="804" alt="image" src="https://github.com/user-attachments/assets/a921c15b-887f-4a65-b737-cee6d7aebc80" />
 
 
 
