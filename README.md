@@ -33,7 +33,7 @@
   - Throughput: 100+ req/min
 
 ##  Quick Start
-- git clone AI-Phish-Guard
+- git clone https://github.com/Keertilata20/ai-phish-guard
 - cd ai-phish-guard
 - pip install -r requirements.txt
 - uvicorn main:app --reload
