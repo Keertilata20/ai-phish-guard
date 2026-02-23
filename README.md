@@ -8,8 +8,8 @@
 - **Explainable**: Shows exactly why email is flagged
 
 ## Live Demo Example
-Input: **Urgent bank update required NOW**
-Output: **PHISH RISK: 92% (urgency manipulation detected)**
+- Input: **Urgent bank update required NOW**
+- Output: **PHISH RISK: 92% (urgency manipulation detected)**
 
 ## ML Pipeline
 - HuggingFace ZeroShot pipeline -> BERT embeddings -> Cosine similarity
