@@ -1,3 +1,18 @@
-body { font-family: Arial; text-align: center; padding: 50px; background: #f0f4f8; }
-h1 { color: #e74c3c; font-size: 3em; }
-.btn { background: #3498db; color: white; padding: 15px 30px; text-decoration: none; border-radius: 5px; }
+body { 
+    font-family: Arial; 
+    text-align: center; 
+    padding: 50px; 
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+h1 { font-size: 3em; margin: 0; }
+.btn { 
+    background: #ff4757; 
+    color: white; 
+    padding: 15px 30px; 
+    text-decoration: none; 
+    border-radius: 25px; 
+    font-size: 18px;
+    display: inline-block;
+    margin-top: 20px;
+}
