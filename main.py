@@ -22,7 +22,7 @@ class UrlRequest(BaseModel):
 @app.post("/scan")
 async def scan_url(request: UrlRequest):
     # Simple phishing detection
-    suspicious = ['bit.ly', 'tinyurl', 'login', 'verify', 'paypal', 'amazon']
+    suspicious = ['bit.ly', 'tinyurl', 'verify', 'paypal', 'amazon','login']
     score = sum(1 for word in suspicious if word.lower() in request.url.lower())
     risk = "HIGH" if score > 1 else "LOW"
     return {"analysis": {"phishing_score": min(score/3, 1.0), "risk": risk}}
