@@ -60,7 +60,7 @@ Traditional detection tools often fail to detect:
 - Script-based deception
 - Behavioral urgency signals
 
-AI Phish Guard is designed as a * lightweight phishing threat detection layer* that identifies these subtle attack patterns before user interaction.
+AI Phish Guard is designed as a * lightweight phishing threat detection layer * that identifies these subtle attack patterns before user interaction.
 
 It focuses on:
 
