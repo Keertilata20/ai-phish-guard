@@ -42,6 +42,34 @@ AI Phish Guard bridges that gap.
 
 ---
 
+
+## Cybersecurity Context
+
+Modern phishing attacks are evolving beyond simple fake login pages.
+
+Attackers now exploit:
+
+- Regional languages (like Hindi)
+- Unicode deception
+- Shortened links
+- Psychological urgency tactics
+
+Traditional detection tools often fail to detect:
+
+- Language-targeted scams
+- Script-based deception
+- Behavioral urgency signals
+
+AI Phish Guard is designed as a ** lightweight phishing threat detection layer** that identifies these subtle attack patterns before user interaction.
+
+It focuses on:
+
+- Early risk signaling
+- Behavioral phishing indicators
+- Multilingual targeting detection
+
+This makes it especially relevant for emerging digital populations where localized phishing is rising.
+
 ##  Tech Stack
 
 Frontend:
