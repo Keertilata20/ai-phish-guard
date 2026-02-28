@@ -1,37 +1,144 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
-import uvicorn
+import re
 
-app = FastAPI(title="🛡️ AI Phish Guard")
+app = FastAPI()
 
-# ✅ SERVE YOUR static/ folder
-app.mount("/static", StaticFiles(directory="static"), name="static")
+# Allow frontend
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
-# ✅ SERVE index.html from static/
-@app.get("/", response_class=HTMLResponse)
-async def read_index():
-    with open("static/index.html", "r", encoding="utf-8") as f:
-        return f.read()
-
-# ✅ YOUR SCANNING API
-class UrlRequest(BaseModel):
+class URLRequest(BaseModel):
     url: str
 
-@app.post("/scan")
-async def scan_url(request: UrlRequest):
-    # Simple phishing detection
-    suspicious = ['bit.ly', 'tinyurl', 'verify', 'paypal', 'amazon','login']
-    score = sum(1 for word in suspicious if word.lower() in request.url.lower())
-    confidence = min(score/3, 1.0)
-    label = "safe"
-    if confidence > 0.6:
-        label = "phishing"
-    elif confidence > 0.3:
-        label = "suspicious"
-    return {
-    "label": label,
-    "confidence": confidence
-}
+# ===============================
+# 🔍 Hindi Keyword Detection
+# ===============================
 
+hindi_keywords = [
+    "खाता", "लॉगिन", "सत्यापन", "केवाईसी",
+    "पासवर्ड", "अपडेट", "तुरंत", "अभी"
+]
+
+def contains_hindi_keyword(text):
+    return any(word in text for word in hindi_keywords)
+
+# ===============================
+# 🔍 Hindi Script Detection
+# ===============================
+
+def contains_hindi_script(text):
+    hindi_pattern = re.compile(r'[\u0900-\u097F]')
+    return bool(hindi_pattern.search(text))
+
+# ===============================
+# 🚨 Suspicious patterns
+# ===============================
+
+shorteners = ["bit.ly", "tinyurl", "goo.gl", "t.co"]
+phishing_words = ["verify", "update", "login", "urgent", "bank", "account"]
+
+# ===============================
+# 🚀 Scan API
+# ===============================
+
+@app.post("/scan")
+def scan_url(data: URLRequest):
+
+    url = data.url.lower()
+    risk_score = 0
+
+    # ===============================
+    # 🔍 Detection Flags
+    # ===============================
+
+    is_shortened = any(short in url for short in shorteners)
+    has_phishing_words = any(word in url for word in phishing_words)
+    has_hindi_phishing_words = contains_hindi_keyword(url)
+    has_hindi_script = contains_hindi_script(url)
+    suspicious_structure = "-" in url
+    has_urgent_words = any(word in url for word in ["urgent", "now", "immediate", "verify"])
+
+    # ===============================
+    # 🚨 Risk Scoring
+    # ===============================
+
+    if is_shortened:
+        risk_score += 0.3
+
+    if has_phishing_words:
+        risk_score += 0.25
+
+    if has_hindi_phishing_words:
+        risk_score += 0.25
+
+    if has_hindi_script:
+        risk_score += 0.20
+
+    if suspicious_structure:
+        risk_score += 0.15
+
+    risk_score = min(risk_score, 1.0)
+
+    # ===============================
+    # 🎯 Label Logic
+    # ===============================
+
+    if risk_score > 0.6:
+        label = "phishing"
+    elif risk_score > 0.3:
+        label = "suspicious"
+    else:
+        label = "safe"
+
+    # ===============================
+    # 🌐 Expanded Link
+    # ===============================
+
+    expanded_url = None
+    if is_shortened:
+        expanded_url = "Expanded destination could not be verified"
+
+    # ===============================
+    # 🧠 Confidence
+    # ===============================
+
+    confidence = risk_score
+
+    # ===============================
+    # 📊 Flags (for explanation engine)
+    # ===============================
+
+    flags = {
+        "shortened": is_shortened,
+        "urgent": has_urgent_words,
+        "phishing_words": has_phishing_words,
+        "hindi": has_hindi_script,
+        "hindi_phishing": has_hindi_phishing_words,
+        "structure": suspicious_structure
+    }
+
+    return {
+        "label": label,
+        "confidence": confidence,
+        "expanded_url": expanded_url,
+        "flags": flags
+    }
+
+# ===============================
+# 📁 Static Hosting
+# ===============================
+
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
+@app.get("/")
+def home():
+    return FileResponse("static/index.html")

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>AI Phish Guard</title>
- <link rel="stylesheet" href="/static/style.css">
+<link rel="stylesheet" href="/static/style.css">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 
@@ -26,13 +26,10 @@
 <div id="resultBox" class="result-box hidden">
     <h2 id="resultText"></h2>
 
-
-<div class="risk-bar">
-    <div id="riskFill"></div>
-</div>
-<p id="riskPercent"></p>
-
-
+    <div class="risk-bar">
+        <div id="riskFill"></div>
+    </div>
+    <p id="riskPercent"></p>
 </div>
 
 <!-- TIMELINE -->
@@ -82,7 +79,7 @@
 <!-- REASONS -->
 
 <div id="reasonBox" class="reason-box hidden">
-<h3>Why this link is risky ? </h3>
+<h3>Why this link is risky ?</h3>
 <ul id="reasonList"></ul>
 </div>
 
@@ -143,12 +140,11 @@ async function scanURL() {
     const data = await response.json();
 
     status.innerText = "Analysis complete";
-
     timeline.classList.remove("hidden");
-timeline.classList.add("completed");
+    timeline.classList.add("completed");
     resultBox.classList.remove("hidden");
 
-    let risk = Math.round((data.confidence || data.probability || 0) * 100);
+    let risk = Math.round((data.confidence || 0) * 100);
 
     if(data.label === "safe"){
         resultText.innerText = "✔️ Safe";
@@ -167,14 +163,13 @@ timeline.classList.add("completed");
     riskPercent.innerText = risk + "% risk";
 
     expandedBox.classList.remove("hidden");
+    originalLink.innerText = url;
 
-originalLink.innerText = url;
-
-if(data.expanded_url){
-    expandedLink.innerText = data.expanded_url;
-} else {
-    expandedLink.innerText = "No redirection detected";
-}
+    if(data.expanded_url){
+        expandedLink.innerText = data.expanded_url;
+    } else {
+        expandedLink.innerText = "No redirection detected";
+    }
 
     confidenceBox.classList.remove("hidden");
 
@@ -184,27 +179,58 @@ if(data.expanded_url){
         behaviourBar.style.width = (risk * 0.7) + "%";
     }, 400);
 
-   if(data.label !== "safe"){
+    // =========================
+    // Hindi-aware Reason Engine
+    // =========================
 
-    reasonBox.classList.remove("hidden");
-    reasonList.innerHTML = "";
+    if(data.label !== "safe"){
 
-    let reasons = data.reasons || [
-        "Uses shortened link (possible disguise)",
-        "Contains urgent action keywords",
-        "Suspicious domain structure"
-    ];
+        reasonBox.classList.remove("hidden");
+        reasonList.innerHTML = "";
 
-    reasons.forEach(r => {
-        let li = document.createElement("li");
-        li.innerText = r;
-        reasonList.appendChild(li);
-    });
+        let reasons = [];
 
+if(data.flags){
+
+    if(data.flags.shortened){
+        reasons.push("The link uses a shortened format, which can hide the real destination.");
+    }
+
+    if(data.flags.urgent){
+        reasons.push("The link creates urgency to push quick action.");
+    }
+
+    if(data.flags.phishing_words){
+        reasons.push("Suspicious wording commonly seen in phishing attempts was detected.");
+    }
+
+    if(data.flags.hindi){
+        reasons.push("The link appears to target Hindi-speaking users.");
+    }
+
+    if(data.flags.hindi_phishing){
+        reasons.push("Deceptive Hindi wording was detected.");
+    }
+
+    if(data.flags.structure){
+        reasons.push("The domain structure looks unusual or misleading.");
+    }
 }
-else{
-    reasonBox.classList.add("hidden");
+
+if(reasons.length === 0){
+    reasons.push("Multiple subtle risk signals were detected.");
 }
+
+        reasons.forEach(r => {
+            let li = document.createElement("li");
+            li.innerText = r;
+            reasonList.appendChild(li);
+        });
+
+    }
+    else{
+        reasonBox.classList.add("hidden");
+    }
 
     btn.disabled = false;
     btn.innerText = "Scan Now";
