@@ -112,71 +112,67 @@ button {
     display:none;
 }
 /* =========================
-   📱 MOBILE RESPONSIVE FIX
+   📱 NEW MOBILE FLOW FIX
    ========================= */
 
 @media (max-width: 768px) {
 
-    body {
-        padding: 20px;
+    .container {
+        margin-top: 40px;
+        padding: 10px;
     }
 
-    .hero {
-        text-align: center;
+    h1 {
+        font-size: 22px;
+        margin-bottom: 5px;
     }
 
-    .hero h1 {
-        font-size: 28px;
-        line-height: 1.2;
+    .tagline {
+        font-size: 13px;
+        margin-bottom: 15px;
     }
 
-    .hero p {
-        font-size: 14px;
-        margin-bottom: 20px;
-    }
-
-    .scan-container {
+    .input-area {
+        display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 12px;
-        width: 100%;
+        gap: 10px;
     }
 
     #urlInput {
         width: 90%;
         font-size: 14px;
-        padding: 14px;
     }
 
     #scanBtn {
-        width: 60%;
-        padding: 12px;
-        font-size: 14px;
+        width: 65%;
     }
 
     .result-box {
-        width: 95%;
-        padding: 20px;
+        margin-top: 15px;
+        padding: 16px;
     }
 
     .timeline {
+        margin-top: 10px;
         font-size: 13px;
-        line-height: 1.6;
+        line-height: 1.4;
     }
 
-    .expanded-box {
-        width: 95%;
+    .expanded {
+        margin-top: 12px;
+        padding: 12px;
         font-size: 13px;
-        word-break: break-all;
     }
 
-    .confidence-box {
-        width: 95%;
+    .confidence {
+        margin-top: 12px;
+    }
+
+    .reason-box {
+        margin-top: 12px;
         padding: 15px;
-    }
-
-    .confidence-bar {
-        height: 8px;
+        font-size: 13px;
     }
 
 }
