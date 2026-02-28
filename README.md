@@ -8,13 +8,13 @@ It provides users with a clear visual explanation of risk instead of just saying
 
 ---
 
-## 🚀 Live Demo
+##  Live Demo
 
 🔗 https://ai-phish-guard.onrender.com
 
 ---
 
-## ✨ Features
+##  Features
 
 -  AI-powered phishing detection
 -  Short link expansion awareness
@@ -29,7 +29,7 @@ It provides users with a clear visual explanation of risk instead of just saying
 
 ---
 
-## 🧠 Why This Project Matters
+##  Why This Project Matters
 
 Many phishing attacks now target regional language users.
 
@@ -42,7 +42,7 @@ AI Phish Guard bridges that gap.
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 Frontend:
 - HTML
@@ -57,7 +57,7 @@ Deployment:
 
 ---
 
-## 🧪 Example Detection
+##  Example Detection
 
 The system can flag:
 
@@ -69,7 +69,7 @@ The system can flag:
 
 ---
 
-## 📊 Detection Signals Used
+##  Detection Signals Used
 
 | Signal | Purpose |
 |-------|--------|
@@ -81,7 +81,7 @@ The system can flag:
 
 ---
 
-## 🌐 Language Support
+##  Language Support
 
 Users can switch between:
 
@@ -92,7 +92,7 @@ All explanations dynamically translate.
 
 ---
 
-## 📦 Installation (Local Setup)
+##  Installation (Local Setup)
 
 ```bash
 git clone https://github.com/Keertilata20/ai-phish-guard.git
