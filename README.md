@@ -1,75 +1,101 @@
-# AI-Phish-Guard
-**Zero-Shot ML Phishing Detection Project**
+# 🛡️ AI Phish Guard
 
-## Features
-- **Zero-shot learning**: Detects new phishing campaigns
-- **XF-PhishBERT inspired**: High accuracy with minimal training data
-- **Multilingual**: English and Hindi phishing detection  
-- **Explainable**: Shows exactly why email is flagged
+Detecting deception before it detects you.
 
-## Live Demo Example
-- Input: **"Urgent bank update required NOW"**
-- Output: **PHISH RISK: 92% (urgency manipulation detected)**
+AI Phish Guard is a phishing link detection web app that analyses suspicious URLs using behavioral signals, structural patterns, and multilingual phishing indicators — including Hindi-targeted scam attempts.
 
-## ML Pipeline
-- HuggingFace ZeroShot pipeline -> BERT embeddings -> Cosine similarity
-- Enron dataset and PhishTank validation
+It provides users with a clear visual explanation of risk instead of just saying “safe” or “dangerous”.
 
-## Tech Stack
--  HuggingFace Transformers
--  Python FastAPI
--  Docker
--  PyTorch
--  Flask Prototype 
+---
 
-## Status
-- Model prototype in progress 
-- Flask web demo  
-- Supports Hindi Language
+## 🚀 Live Demo
 
-## Target
-  - Accuracy: 95%+
-  - Inference time: <50ms
-  - Throughput: 100+ req/min
+🔗 https://ai-phish-guard.onrender.com
 
-##  Quick Start
-- git clone https://github.com/Keertilata20/ai-phish-guard
-- cd ai-phish-guard
-- pip install -r requirements.txt
-- uvicorn main:app --reload
+---
 
-##  AI Phish Guard - Live Demo
+## ✨ Features
 
-**- Terminal**
-<img width="1186" height="549" alt="image" src="https://github.com/user-attachments/assets/5b7e8395-0120-47d5-8862-bea07ea6a6a7" />
+- 🔍 AI-powered phishing detection
+- 🌐 Short link expansion awareness
+- 🧠 Behaviour-based risk analysis
+- 🧱 Domain structure analysis
+- 📊 Confidence breakdown
+- 📜 Human-readable risk explanation
+- 🇮🇳 Hindi phishing detection
+- 🌏 Dual Language Mode (English / हिंदी)
+- 📱 Mobile responsive interface
+- 🎬 Animated scan timeline
 
+---
 
+## 🧠 Why This Project Matters
 
+Many phishing attacks now target regional language users.
 
+Traditional tools miss:
+- Hindi phishing keywords
+- Unicode spoofing
+- Language-targeted urgency scams
 
+AI Phish Guard bridges that gap.
 
-**- Source Code**
-<img width="1115" height="810" alt="image" src="https://github.com/user-attachments/assets/2d695ca4-01e5-45a3-aacd-9e2bec7dcf6c" />
+---
 
+## 🛠️ Tech Stack
 
+Frontend:
+- HTML
+- CSS
+- JavaScript
 
+Backend:
+- FastAPI (Python)
 
+Deployment:
+- Render
 
+---
 
-**- API Response Example**
-<img width="1909" height="874" alt="image" src="https://github.com/user-attachments/assets/2ffc20e6-c6a3-473b-8cd1-6aad5a568661" />
-<img width="1497" height="819" alt="image" src="https://github.com/user-attachments/assets/9ed839b7-2281-43a0-9247-84eb5c77bc86" />
-<img width="1354" height="804" alt="image" src="https://github.com/user-attachments/assets/a921c15b-887f-4a65-b737-cee6d7aebc80" />
+## 🧪 Example Detection
 
+The system can flag:
 
+- Shortened phishing links  
+- Urgent scam language  
+- Suspicious domain structures  
+- Hindi phishing wording  
+- Unicode deception  
 
+---
 
+## 📊 Detection Signals Used
 
+| Signal | Purpose |
+|-------|--------|
+| Shortened links | Hide malicious destination |
+| Phishing keywords | Urgency & manipulation |
+| Domain structure | Fake authority mimicry |
+| Hindi keywords | Regional targeting |
+| Hindi script usage | Unicode spoof attempts |
 
-**- Demo**
-<img width="1919" height="936" alt="image" src="https://github.com/user-attachments/assets/58f6b033-82ac-47df-84d7-2470ce654e39" />
+---
 
+## 🌐 Language Support
 
+Users can switch between:
 
+- English Mode
+- Hindi Mode
 
+All explanations dynamically translate.
 
+---
+
+## 📦 Installation (Local Setup)
+
+```bash
+git clone https://github.com/YOUR_USERNAME/ai-phish-guard.git
+cd ai-phish-guard
+pip install -r requirements.txt
+uvicorn main:app --reload
