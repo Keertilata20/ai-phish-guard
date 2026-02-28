@@ -13,6 +13,10 @@
 
 <h1>🛡️ AI Phish Guard</h1>
 <p class="tagline">Detecting deception before it detects you</p>
+<div class="lang-toggle">
+    <button onclick="setLang('en')" id="enBtn">English</button>
+    <button onclick="setLang('hi')" id="hiBtn">हिंदी</button>
+</div>
 
 <div class="input-area">
 <input type="text" id="urlInput" placeholder="Enter URL to scan...">
@@ -35,12 +39,11 @@
 <!-- TIMELINE -->
 
 <div id="timeline" class="timeline hidden">
-<p>🔒 Initializing shield...</p>
-<p>🌐 Expanding short link...</p>
-<p>🧠 AI analysing behaviour...</p>
-<p>⚠️ Risk modeling...</p>
+<p id="step1"></p>
+<p id="step2"></p>
+<p id="step3"></p>
+<p id="step4"></p>
 </div>
-
 <!-- EXPANDED LINK -->
 
 <div id="expandedBox" class="expanded hidden">
@@ -79,13 +82,34 @@
 <!-- REASONS -->
 
 <div id="reasonBox" class="reason-box hidden">
-<h3>Why this link is risky ?</h3>
+<h3 id="reasonTitle">Why this link is risky ?</h3>
 <ul id="reasonList"></ul>
 </div>
 
 </div>
 
 <script>
+
+let currentLang = "en";
+
+function setLang(lang){
+    currentLang = lang;
+
+    const btn = document.getElementById("scanBtn");
+    const enBtn = document.getElementById("enBtn");
+    const hiBtn = document.getElementById("hiBtn");
+
+    if(currentLang === "hi"){
+        btn.innerText = "स्कैन करें";
+        hiBtn.style.opacity = "1";
+        enBtn.style.opacity = "0.5";
+    } else {
+        btn.innerText = "Scan Now";
+        hiBtn.style.opacity = "0.5";
+        enBtn.style.opacity = "1";
+    }
+}
+
 async function scanURL() {
 
     const btn = document.getElementById("scanBtn");
@@ -109,19 +133,38 @@ async function scanURL() {
     const reasonList = document.getElementById("reasonList");
 
     btn.disabled = true;
-    btn.innerText = "Scanning...";
+    btn.innerText = currentLang === "hi" ? "जाँच हो रही है..." : "Scanning...";
 
     resultBox.classList.add("hidden");
-    timeline.classList.remove("hidden");
     expandedBox.classList.add("hidden");
     confidenceBox.classList.add("hidden");
     reasonBox.classList.add("hidden");
 
-    const steps = [
-        "Initializing shield...",
-        "Expanding short link...",
-        "AI analysing behaviour...",
-        "Risk modeling..."
+    timeline.classList.remove("hidden");
+    if(currentLang === "hi"){
+    document.getElementById("step1").innerText = "🔒 सुरक्षा शुरू हो रही है...";
+    document.getElementById("step2").innerText = "🌐 लिंक का विस्तार किया जा रहा है...";
+    document.getElementById("step3").innerText = "🧠 AI व्यवहार का विश्लेषण कर रहा है...";
+    document.getElementById("step4").innerText = "⚠️ जोखिम का मूल्यांकन हो रहा है...";
+} else {
+    document.getElementById("step1").innerText = "🔒 Initializing shield...";
+    document.getElementById("step2").innerText = "🌐 Expanding short link...";
+    document.getElementById("step3").innerText = "🧠 AI analysing behaviour...";
+    document.getElementById("step4").innerText = "⚠️ Risk modeling...";
+}
+
+    const steps = currentLang === "hi"
+    ? [
+        "🔒 सुरक्षा शुरू हो रही है...",
+        "🌐 लिंक का विस्तार किया जा रहा है...",
+        "🧠 AI व्यवहार का विश्लेषण कर रहा है...",
+        "⚠️ जोखिम का मूल्यांकन हो रहा है..."
+    ]
+    : [
+        "🔒 Initializing shield...",
+        "🌐 Expanding short link...",
+        "🧠 AI analysing behaviour...",
+        "⚠️ Risk modeling..."
     ];
 
     for (let step of steps) {
@@ -139,39 +182,44 @@ async function scanURL() {
 
     const data = await response.json();
 
-    status.innerText = "Analysis complete";
-    timeline.classList.remove("hidden");
-    timeline.classList.add("completed");
+    status.innerText = currentLang === "hi" ? "विश्लेषण पूरा हुआ" : "Analysis complete";
+
     resultBox.classList.remove("hidden");
 
-    let risk = Math.round((data.confidence || 0) * 100);
+    let risk = Math.round((data.confidence || data.probability || 0) * 100);
 
     if(data.label === "safe"){
-        resultText.innerText = "✔️ Safe";
+        resultText.innerText = currentLang === "hi" ? "✔️ सुरक्षित" : "✔️ Safe";
         resultBox.className = "result-box safe";
     }
     else if(data.label === "suspicious"){
-        resultText.innerText = "⚠️ Suspicious";
+        resultText.innerText = currentLang === "hi" ? "⚠️ संदिग्ध" : "⚠️ Suspicious";
         resultBox.className = "result-box suspicious";
     }
     else{
-        resultText.innerText = "🚨 Phishing Detected";
+        resultText.innerText = currentLang === "hi" ? "🚨 फ़िशिंग लिंक मिला" : "🚨 Phishing Detected";
         resultBox.className = "result-box danger";
     }
 
     riskFill.style.width = risk + "%";
-    riskPercent.innerText = risk + "% risk";
+    riskPercent.innerText = currentLang === "hi"
+        ? risk + "% जोखिम"
+        : risk + "% risk";
 
     expandedBox.classList.remove("hidden");
     originalLink.innerText = url;
 
-    if(data.expanded_url){
-        expandedLink.innerText = data.expanded_url;
-    } else {
-        expandedLink.innerText = "No redirection detected";
-    }
+    expandedLink.innerText = data.expanded_url
+        ? data.expanded_url
+        : (currentLang === "hi" ? "कोई रीडायरेक्शन नहीं मिला" : "No redirection detected");
+
+    document.querySelector("#expandedBox h3").innerText =
+        currentLang === "hi" ? "लिंक विश्लेषण" : "Link Analysis";
 
     confidenceBox.classList.remove("hidden");
+
+    document.querySelector("#confidenceBox h3").innerText =
+        currentLang === "hi" ? "जोखिम विश्लेषण" : "Confidence Breakdown";
 
     setTimeout(() => {
         structureBar.style.width = risk + "%";
@@ -179,63 +227,77 @@ async function scanURL() {
         behaviourBar.style.width = (risk * 0.7) + "%";
     }, 400);
 
-    // =========================
-    // Hindi-aware Reason Engine
-    // =========================
-
     if(data.label !== "safe"){
 
         reasonBox.classList.remove("hidden");
         reasonList.innerHTML = "";
 
+        document.querySelector("#reasonBox h3").innerText =
+            currentLang === "hi"
+            ? "यह लिंक जोखिमपूर्ण क्यों है?"
+            : "Why this link is risky?";
+
         let reasons = [];
 
-if(data.flags){
+        if(data.flags){
 
-    if(data.flags.shortened){
-        reasons.push("The link uses a shortened format, which can hide the real destination.");
-    }
+            if(data.flags.shortened){
+                reasons.push(currentLang === "hi"
+                    ? "लिंक छोटा किया गया है — असली गंतव्य छिपाया जा सकता है"
+                    : "The link uses a shortened format, which can hide the real destination.");
+            }
 
-    if(data.flags.urgent){
-        reasons.push("The link creates urgency to push quick action.");
-    }
+            if(data.flags.urgent){
+                reasons.push(currentLang === "hi"
+                    ? "यह लिंक तुरंत कार्रवाई के लिए दबाव बनाता है"
+                    : "The link creates urgency to push quick action.");
+            }
 
-    if(data.flags.phishing_words){
-        reasons.push("Suspicious wording commonly seen in phishing attempts was detected.");
-    }
+            if(data.flags.phishing_words){
+                reasons.push(currentLang === "hi"
+                    ? "फ़िशिंग में इस्तेमाल होने वाले शब्द पाए गए"
+                    : "Suspicious wording commonly seen in phishing attempts was detected.");
+            }
 
-    if(data.flags.hindi){
-        reasons.push("The link appears to target Hindi-speaking users.");
-    }
+            if(data.flags.hindi){
+                reasons.push(currentLang === "hi"
+                    ? "लिंक हिंदी उपयोगकर्ताओं को लक्षित कर सकता है"
+                    : "The link appears to target Hindi-speaking users.");
+            }
 
-    if(data.flags.hindi_phishing){
-        reasons.push("Deceptive Hindi wording was detected.");
-    }
+            if(data.flags.hindi_phishing){
+                reasons.push(currentLang === "hi"
+                    ? "धोखाधड़ी वाले हिंदी शब्द पाए गए"
+                    : "Deceptive Hindi wording was detected.");
+            }
 
-    if(data.flags.structure){
-        reasons.push("The domain structure looks unusual or misleading.");
-    }
-}
+            if(data.flags.structure){
+                reasons.push(currentLang === "hi"
+                    ? "डोमेन संरचना असामान्य लगती है"
+                    : "The domain structure looks unusual or misleading.");
+            }
+        }
 
-if(reasons.length === 0){
-    reasons.push("Multiple subtle risk signals were detected.");
-}
+        if(reasons.length === 0){
+            reasons.push(currentLang === "hi"
+                ? "कई सूक्ष्म जोखिम संकेत पाए गए"
+                : "Multiple subtle risk signals were detected.");
+        }
 
         reasons.forEach(r => {
             let li = document.createElement("li");
             li.innerText = r;
             reasonList.appendChild(li);
         });
-
     }
     else{
         reasonBox.classList.add("hidden");
     }
 
     btn.disabled = false;
-    btn.innerText = "Scan Now";
+    btn.innerText = currentLang === "hi" ? "फिर से स्कैन करें" : "Scan Again";
 }
-</script>
 
+</script>
 </body>
 </html>
