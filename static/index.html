@@ -144,7 +144,8 @@ async function scanURL() {
 
     status.innerText = "Analysis complete";
 
-    timeline.classList.add("hidden");
+    timeline.classList.remove("hidden");
+timeline.classList.add("completed");
     resultBox.classList.remove("hidden");
 
     let risk = Math.round((data.confidence || data.probability || 0) * 100);
@@ -183,20 +184,27 @@ if(data.expanded_url){
         behaviourBar.style.width = (risk * 0.7) + "%";
     }, 400);
 
-   reasonBox.classList.remove("hidden");
-reasonList.innerHTML = "";
+   if(data.label !== "safe"){
 
-let reasons = data.reasons || [
-    "Uses shortened link (possible disguise)",
-    "Contains urgent action keywords",
-    "Suspicious domain structure"
-];
+    reasonBox.classList.remove("hidden");
+    reasonList.innerHTML = "";
 
-reasons.forEach(r => {
-    let li = document.createElement("li");
-    li.innerText = r;
-    reasonList.appendChild(li);
-});
+    let reasons = data.reasons || [
+        "Uses shortened link (possible disguise)",
+        "Contains urgent action keywords",
+        "Suspicious domain structure"
+    ];
+
+    reasons.forEach(r => {
+        let li = document.createElement("li");
+        li.innerText = r;
+        reasonList.appendChild(li);
+    });
+
+}
+else{
+    reasonBox.classList.add("hidden");
+}
 
     btn.disabled = false;
     btn.innerText = "Scan Now";
