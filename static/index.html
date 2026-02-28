@@ -11,82 +11,125 @@
 
 <div class="container">
 
-    <h1>🛡️ AI Phish Guard</h1>
-    <p class="tagline">Detecting deception before it detects you</p>
+<h1>🛡️ AI Phish Guard</h1>
+<p class="tagline">Detecting deception before it detects you</p>
 
-    <div class="input-group">
-        <input type="text" id="urlInput" placeholder="Enter suspicious link...">
-        <button id="scanBtn" onclick="scanURL()">Scan Now</button>
-    </div>
+<div class="input-area">
+<input type="text" id="urlInput" placeholder="Enter URL to scan...">
+<button id="scanBtn" onclick="scanURL()">Scan Now</button>
+</div>
 
-    <p id="scanStatus"></p>
+<p id="scanStatus"></p>
 
-    <!-- RESULT BOX -->
-    <div id="resultBox" class="result-box hidden">
-        <h2 id="resultText"></h2>
-        <div class="risk-bar">
-            <div id="riskFill"></div>
-        </div>
-        <p id="riskPercent"></p>
-    </div>
+<!-- RESULT -->
 
-    <!-- TIMELINE -->
-    <div id="scanTimeline" class="timeline hidden">
-        <div class="timeline-step" id="t1">🔐 Initializing shield...</div>
-        <div class="timeline-step" id="t2">🌐 Expanding short link...</div>
-        <div class="timeline-step" id="t3">🧠 AI analysing behaviour...</div>
-        <div class="timeline-step" id="t4">⚠️ Risk modeling...</div>
-    </div>
+<div id="resultBox" class="result-box hidden">
+    <h2 id="resultText"></h2>
 
-    <!-- EXPANDED LINK -->
-    <div id="expandedBox" class="expanded hidden">
-        <strong>Expanded Link:</strong>
-        <p id="expandedLink">Checking...</p>
-    </div>
 
-    <!-- CONFIDENCE -->
-    <div id="confidenceBox" class="confidence hidden">
+<div class="risk-bar">
+    <div id="riskFill"></div>
+</div>
+<p id="riskPercent"></p>
 
-        <h3>Confidence Breakdown</h3>
 
-        <div class="bar">
-            <span>Structure Risk</span>
-            <div class="fill" id="structBar"></div>
-        </div>
+</div>
 
-        <div class="bar">
-            <span>Domain Risk</span>
-            <div class="fill" id="domainBar"></div>
-        </div>
+<!-- TIMELINE -->
 
-        <div class="bar">
-            <span>Behaviour Risk</span>
-            <div class="fill" id="aiBar"></div>
-        </div>
+<div id="timeline" class="timeline hidden">
+<p>🔒 Initializing shield...</p>
+<p>🌐 Expanding short link...</p>
+<p>🧠 AI analysing behaviour...</p>
+<p>⚠️ Risk modeling...</p>
+</div>
 
-    </div>
+<!-- EXPANDED LINK -->
+
+<div id="expandedBox" class="expanded hidden">
+    <h3>Link Analysis</h3>
+
+    <p><strong>Original:</strong></p>
+    <p id="originalLink"></p>
+
+    <p><strong>Expanded Destination:</strong></p>
+    <p id="expandedLink"></p>
+</div>
+
+<!-- CONFIDENCE -->
+
+<div id="confidenceBox" class="confidence hidden">
+
+<h3>Confidence Breakdown</h3>
+
+<div class="bar">
+<span>Structure Risk</span>
+<div class="bar-bg"><div id="structureBar"></div></div>
+</div>
+
+<div class="bar">
+<span>Domain Risk</span>
+<div class="bar-bg"><div id="domainBar"></div></div>
+</div>
+
+<div class="bar">
+<span>Behaviour Risk</span>
+<div class="bar-bg"><div id="behaviourBar"></div></div>
+</div>
+
+</div>
+
+<!-- REASONS -->
+
+<div id="reasonBox" class="reason-box hidden">
+<h3>Why this link is risky ? </h3>
+<ul id="reasonList"></ul>
+</div>
 
 </div>
 
 <script>
-
 async function scanURL() {
 
     const btn = document.getElementById("scanBtn");
     const status = document.getElementById("scanStatus");
     const resultBox = document.getElementById("resultBox");
+    const resultText = document.getElementById("resultText");
+    const riskFill = document.getElementById("riskFill");
+    const riskPercent = document.getElementById("riskPercent");
+
+    const timeline = document.getElementById("timeline");
+    const expandedBox = document.getElementById("expandedBox");
+    const expandedLink = document.getElementById("expandedLink");
+    const originalLink = document.getElementById("originalLink");
+
+    const confidenceBox = document.getElementById("confidenceBox");
+    const structureBar = document.getElementById("structureBar");
+    const domainBar = document.getElementById("domainBar");
+    const behaviourBar = document.getElementById("behaviourBar");
+
+    const reasonBox = document.getElementById("reasonBox");
+    const reasonList = document.getElementById("reasonList");
 
     btn.disabled = true;
     btn.innerText = "Scanning...";
+
     resultBox.classList.add("hidden");
+    timeline.classList.remove("hidden");
+    expandedBox.classList.add("hidden");
+    confidenceBox.classList.add("hidden");
+    reasonBox.classList.add("hidden");
 
-    document.getElementById("scanTimeline").classList.remove("hidden");
+    const steps = [
+        "Initializing shield...",
+        "Expanding short link...",
+        "AI analysing behaviour...",
+        "Risk modeling..."
+    ];
 
-    let steps = ["t1","t2","t3","t4"];
-
-    for(let id of steps){
-        document.getElementById(id).classList.add("active");
-        await new Promise(r => setTimeout(r,600));
+    for (let step of steps) {
+        status.innerText = step;
+        await new Promise(r => setTimeout(r, 700));
     }
 
     const url = document.getElementById("urlInput").value;
@@ -99,20 +142,19 @@ async function scanURL() {
 
     const data = await response.json();
 
+    status.innerText = "Analysis complete";
+
+    timeline.classList.add("hidden");
     resultBox.classList.remove("hidden");
 
     let risk = Math.round((data.confidence || data.probability || 0) * 100);
 
-    const resultText = document.getElementById("resultText");
-    const riskFill = document.getElementById("riskFill");
-    const riskPercent = document.getElementById("riskPercent");
-
     if(data.label === "safe"){
-        resultText.innerText = "✔ Safe";
+        resultText.innerText = "✔️ Safe";
         resultBox.className = "result-box safe";
     }
     else if(data.label === "suspicious"){
-        resultText.innerText = "⚠ Suspicious";
+        resultText.innerText = "⚠️ Suspicious";
         resultBox.className = "result-box suspicious";
     }
     else{
@@ -123,22 +165,42 @@ async function scanURL() {
     riskFill.style.width = risk + "%";
     riskPercent.innerText = risk + "% risk";
 
-    // Expanded Link
-    document.getElementById("expandedBox").classList.remove("hidden");
-    document.getElementById("expandedLink").innerText = data.expanded_url || "Original link";
+    expandedBox.classList.remove("hidden");
 
-    // Confidence
-    document.getElementById("confidenceBox").classList.remove("hidden");
+originalLink.innerText = url;
 
-    let base = (data.confidence || 0.5) * 100;
+if(data.expanded_url){
+    expandedLink.innerText = data.expanded_url;
+} else {
+    expandedLink.innerText = "No redirection detected";
+}
 
-document.getElementById("structBar").style.width = (base * 0.7) + "%";
-document.getElementById("domainBar").style.width = (base * 0.9) + "%";
-document.getElementById("aiBar").style.width = base + "%";
+    confidenceBox.classList.remove("hidden");
+
+    setTimeout(() => {
+        structureBar.style.width = risk + "%";
+        domainBar.style.width = (risk * 0.85) + "%";
+        behaviourBar.style.width = (risk * 0.7) + "%";
+    }, 400);
+
+   reasonBox.classList.remove("hidden");
+reasonList.innerHTML = "";
+
+let reasons = data.reasons || [
+    "Uses shortened link (possible disguise)",
+    "Contains urgent action keywords",
+    "Suspicious domain structure"
+];
+
+reasons.forEach(r => {
+    let li = document.createElement("li");
+    li.innerText = r;
+    reasonList.appendChild(li);
+});
+
     btn.disabled = false;
     btn.innerText = "Scan Now";
 }
-
 </script>
 
 </body>
