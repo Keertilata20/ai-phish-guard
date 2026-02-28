@@ -100,3 +100,72 @@ button {
 .hidden {
     display:none;
 }
+/* =========================
+   📱 MOBILE RESPONSIVE FIX
+   ========================= */
+
+@media (max-width: 768px) {
+
+    body {
+        padding: 20px;
+    }
+
+    .hero {
+        text-align: center;
+    }
+
+    .hero h1 {
+        font-size: 28px;
+        line-height: 1.2;
+    }
+
+    .hero p {
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+
+    .scan-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        width: 100%;
+    }
+
+    #urlInput {
+        width: 90%;
+        font-size: 14px;
+        padding: 14px;
+    }
+
+    #scanBtn {
+        width: 60%;
+        padding: 12px;
+        font-size: 14px;
+    }
+
+    .result-box {
+        width: 95%;
+        padding: 20px;
+    }
+
+    .timeline {
+        font-size: 13px;
+        line-height: 1.6;
+    }
+
+    .expanded-box {
+        width: 95%;
+        font-size: 13px;
+        word-break: break-all;
+    }
+
+    .confidence-box {
+        width: 95%;
+        padding: 15px;
+    }
+
+    .confidence-bar {
+        height: 8px;
+    }
+
+}

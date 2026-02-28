@@ -130,10 +130,11 @@ async function scanURL() {
     // Confidence
     document.getElementById("confidenceBox").classList.remove("hidden");
 
-    document.getElementById("structBar").style.width = ((data.structure || 0.5)*100) + "%";
-    document.getElementById("domainBar").style.width = ((data.domain || 0.5)*100) + "%";
-    document.getElementById("aiBar").style.width = ((data.behaviour || 0.5)*100) + "%";
+    let base = (data.confidence || 0.5) * 100;
 
+document.getElementById("structBar").style.width = (base * 0.7) + "%";
+document.getElementById("domainBar").style.width = (base * 0.9) + "%";
+document.getElementById("aiBar").style.width = base + "%";
     btn.disabled = false;
     btn.innerText = "Scan Now";
 }
