@@ -1,44 +1,76 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>🛡️ AI Phish Guard</title>
-    <style>
-        body { font-family: Arial; text-align: center; padding: 50px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; margin: 0; }
-        h1 { font-size: 3em; margin: 20px 0; }
-        input { width: 350px; padding: 15px; border: none; border-radius: 25px; font-size: 16px; margin-right: 10px; }
-        .btn { background: #ff4757; color: white; padding: 15px 30px; border: none; border-radius: 25px; font-size: 18px; cursor: pointer; margin: 10px; }
-        .btn:hover { background: #ff3838; }
-        .btn.secondary { background: #3742fa; }
-        #result div { margin-top: 20px; padding: 20px; border-radius: 10px; font-size: 18px; }
-    </style>
+    <meta charset="UTF-8">
+    <title>AI Phish Guard</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <h1>🛡️ AI Phish Guard</h1>
-    <p>Zero-shot phishing detection API</p>
-    
-    <input type="text" id="urlInput" placeholder="https://fake-login-bit.ly/verify">
-    <button class="btn" onclick="scanUrl()">🛡️ SCAN NOW</button>
-    <br><a href="/docs" class="btn btn secondary">API Documentation →</a>
-    
-    <div id="result"></div>
 
-    <script>
-        async function scanUrl() {
-            const url = document.getElementById('urlInput').value;
-            const result = document.getElementById('result');
-            if (!url) return result.innerHTML = '<div style="color:orange">Enter URL!</div>';
-            result.innerHTML = '<div>🔄 Scanning...</div>';
-            try {
-                const res = await fetch('/scan', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({url})});
-                const data = await res.json();
-                const score = (data.analysis.phishing_score * 100).toFixed(0);
-                if (data.analysis.risk === 'HIGH') {
-                    result.innerHTML = `<div style="background:#ff4757;color:white"><h3>🚨 PHISHING!</h3><p>${score}% risk</p></div>`;
-                } else {
-                    result.innerHTML = `<div style="background:#2ed573;color:white"><h3>✅ SAFE</h3><p>${score}% risk</p></div>`;
-                }
-            } catch(e) { result.innerHTML = '<div style="color:red">Error</div>'; }
-        }
-    </script>
+<body>
+
+<div class="container">
+
+    <h1>🛡 AI Phish Guard</h1>
+    <p class="subtitle">Zero-shot phishing detection API</p>
+
+    <div class="scan-box">
+        <input id="urlInput" placeholder="Paste suspicious link here...">
+
+        <button onclick="scanURL()">SCAN NOW</button>
+    </div>
+
+    <div id="loader" class="loader hidden"></div>
+
+    <div id="resultBox" class="result hidden">
+        <h2 id="resultText"></h2>
+
+        <div class="risk-bar">
+            <div id="riskFill" class="risk-fill"></div>
+        </div>
+
+        <p id="riskPercent"></p>
+    </div>
+
+</div>
+
+<script>
+
+async function scanURL() {
+
+    let url = document.getElementById("urlInput").value;
+
+    if (!url) return;
+
+    document.getElementById("loader").classList.remove("hidden");
+    document.getElementById("resultBox").classList.add("hidden");
+
+    const response = await fetch("/predict", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url: url })
+    });
+
+    const data = await response.json();
+
+    document.getElementById("loader").classList.add("hidden");
+    document.getElementById("resultBox").classList.remove("hidden");
+
+    let risk = Math.round(data.risk * 100);
+
+    document.getElementById("riskFill").style.width = risk + "%";
+    document.getElementById("riskPercent").innerText = risk + "% risk";
+
+    if(data.prediction === "phishing"){
+        document.getElementById("resultText").innerText = "⚠️ PHISHING DETECTED";
+        document.getElementById("resultBox").className = "result danger";
+    } else {
+        document.getElementById("resultText").innerText = "✅ SAFE";
+        document.getElementById("resultBox").className = "result safe";
+    }
+
+}
+
+</script>
+
 </body>
 </html>
