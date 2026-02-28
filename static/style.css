@@ -1,155 +1,102 @@
-/* ---------- RESET ---------- */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* ---------- BACKGROUND ---------- */
 body {
+    margin:0;
     font-family: 'Segoe UI', sans-serif;
-    color: white;
-    min-height: 100vh;
-    overflow-x: hidden;
-
-    background: linear-gradient(-45deg, #0f172a, #1e293b, #312e81, #0f172a);
-    background-size: 400% 400%;
-    animation: gradientMove 18s ease infinite;
-    position: relative;
+    color:white;
+    background: linear-gradient(180deg,#0d1b2a,#1b263b,#3a0ca3);
+    overflow-x:hidden;
 }
 
-/* Moving stars layer */
-body::before {
-    content: "";
-    position: fixed;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(white 1px, transparent 1px);
-    background-size: 50px 50px;
-    opacity: 0.07;
-    animation: starDrift 120s linear infinite;
-    pointer-events: none;
-    z-index: 0;
-}
-
-/* Gradient movement */
-@keyframes gradientMove {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-/* Stars drifting */
-@keyframes starDrift {
-    from { transform: translate(0,0); }
-    to { transform: translate(-200px,-300px); }
-}
-
-/* ---------- MAIN CONTAINER ---------- */
 .container {
-    text-align: center;
-    padding-top: 80px;
-    position: relative;
-    z-index: 1;
+    text-align:center;
+    margin-top:80px;
 }
 
-/* ---------- TITLE ---------- */
-h1 {
-    font-size: 3rem;
-    font-weight: 600;
-    margin-bottom: 10px;
+.tagline {
+    opacity:0.8;
 }
 
-.subtitle {
-    opacity: 0.85;
-    margin-bottom: 30px;
-    font-size: 1.1rem;
-}
-
-/* ---------- INPUT ---------- */
 input {
-    width: 420px;
-    padding: 15px;
-    border-radius: 30px;
-    border: none;
-    outline: none;
-    font-size: 1rem;
+    padding:12px;
+    width:300px;
+    border-radius:20px;
+    border:none;
 }
 
-/* ---------- BUTTON ---------- */
 button {
-    padding: 15px 25px;
-    border-radius: 30px;
-    border: none;
-    background: #ff4d6d;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    margin-left: 10px;
-    transition: 0.3s;
+    padding:12px 20px;
+    border-radius:20px;
+    border:none;
+    background:#ff4d6d;
+    color:white;
+    cursor:pointer;
 }
 
-button:hover {
-    transform: scale(1.05);
-    background: #ff2d55;
-}
-
-/* ---------- SCAN STATUS ---------- */
-#scanStatus {
-    margin-top: 20px;
-    opacity: 0.8;
-}
-
-/* ---------- RESULT BOX ---------- */
 .result-box {
-    margin: 40px auto;
-    width: 70%;
-    padding: 40px;
-    border-radius: 20px;
-    text-align: center;
-    transition: 0.5s;
-    box-shadow: 0 0 40px rgba(255,255,255,0.08);
+    margin-top:30px;
+    padding:25px;
+    border-radius:15px;
 }
 
-/* ---------- SAFE ---------- */
-.safe {
-    background: #3ac37a;
-}
+.safe { background:#38b000; }
+.danger { background:#e63946; }
+.suspicious { background:#ff9f43; }
 
-/* ---------- SUSPICIOUS ---------- */
-.suspicious {
-    background: #f4a261;
-}
-
-/* ---------- DANGER ---------- */
-.danger {
-    background: #e63946;
-}
-
-/* ---------- PROGRESS BAR ---------- */
 .risk-bar {
-    width: 100%;
-    height: 10px;
-    background: rgba(255,255,255,0.25);
-    border-radius: 10px;
-    margin-top: 20px;
-    overflow: hidden;
+    height:10px;
+    background:rgba(255,255,255,0.3);
+    border-radius:20px;
+    margin:10px 0;
 }
 
 #riskFill {
-    height: 100%;
-    width: 0%;
-    background: white;
-    transition: 1s ease-in-out;
+    height:100%;
+    width:0%;
+    background:white;
+    transition:1s;
 }
 
-/* ---------- RISK TEXT ---------- */
-#riskPercent {
-    margin-top: 10px;
-    font-size: 1.1rem;
+/* TIMELINE */
+.timeline {
+    margin-top:20px;
+    opacity:0.8;
 }
 
-/* ---------- HIDDEN ---------- */
+.timeline-step {
+    opacity:0.3;
+    margin:4px;
+    transition:0.4s;
+}
+
+.timeline-step.active {
+    opacity:1;
+    transform:scale(1.1);
+}
+
+/* EXPANDED */
+.expanded {
+    margin-top:20px;
+    background:rgba(255,255,255,0.08);
+    padding:10px;
+    border-radius:10px;
+}
+
+/* CONFIDENCE */
+.confidence {
+    margin-top:20px;
+}
+
+.bar {
+    margin:10px 0;
+}
+
+.bar .fill {
+    height:8px;
+    background:linear-gradient(90deg,#ff4d6d,#ff9f43);
+    width:0%;
+    border-radius:20px;
+    transition:1s;
+}
+
 .hidden {
-    display: none;
+    display:none;
 }

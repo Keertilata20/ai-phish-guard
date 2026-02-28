@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>AI Phish Guard</title>
-   <link rel="stylesheet" href="/static/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<title>AI Phish Guard</title>
+ <link rel="stylesheet" href="/static/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -12,15 +12,16 @@
 <div class="container">
 
     <h1>🛡️ AI Phish Guard</h1>
-    <p class="subtitle">Detecting deception before it detects you</p>
+    <p class="tagline">Detecting deception before it detects you</p>
 
-    <div class="scan-box">
-        <input id="urlInput" placeholder="Enter URL to scan..." />
-        <button onclick="scanURL()" id="scanBtn">Scan Now</button>
+    <div class="input-group">
+        <input type="text" id="urlInput" placeholder="Enter suspicious link...">
+        <button id="scanBtn" onclick="scanURL()">Scan Now</button>
     </div>
 
-    <div id="scanStatus" class="scan-status"></div>
+    <p id="scanStatus"></p>
 
+    <!-- RESULT BOX -->
     <div id="resultBox" class="result-box hidden">
         <h2 id="resultText"></h2>
         <div class="risk-bar">
@@ -29,33 +30,63 @@
         <p id="riskPercent"></p>
     </div>
 
+    <!-- TIMELINE -->
+    <div id="scanTimeline" class="timeline hidden">
+        <div class="timeline-step" id="t1">🔐 Initializing shield...</div>
+        <div class="timeline-step" id="t2">🌐 Expanding short link...</div>
+        <div class="timeline-step" id="t3">🧠 AI analysing behaviour...</div>
+        <div class="timeline-step" id="t4">⚠️ Risk modeling...</div>
+    </div>
+
+    <!-- EXPANDED LINK -->
+    <div id="expandedBox" class="expanded hidden">
+        <strong>Expanded Link:</strong>
+        <p id="expandedLink">Checking...</p>
+    </div>
+
+    <!-- CONFIDENCE -->
+    <div id="confidenceBox" class="confidence hidden">
+
+        <h3>Confidence Breakdown</h3>
+
+        <div class="bar">
+            <span>Structure Risk</span>
+            <div class="fill" id="structBar"></div>
+        </div>
+
+        <div class="bar">
+            <span>Domain Risk</span>
+            <div class="fill" id="domainBar"></div>
+        </div>
+
+        <div class="bar">
+            <span>Behaviour Risk</span>
+            <div class="fill" id="aiBar"></div>
+        </div>
+
+    </div>
+
 </div>
 
 <script>
+
 async function scanURL() {
 
     const btn = document.getElementById("scanBtn");
     const status = document.getElementById("scanStatus");
     const resultBox = document.getElementById("resultBox");
-    const resultText = document.getElementById("resultText");
-    const riskFill = document.getElementById("riskFill");
-    const riskPercent = document.getElementById("riskPercent");
 
     btn.disabled = true;
     btn.innerText = "Scanning...";
-
     resultBox.classList.add("hidden");
 
-    const steps = [
-        "Initializing security shield...",
-        "Expanding domain...",
-        "Analyzing patterns...",
-        "AI decision engine running..."
-    ];
+    document.getElementById("scanTimeline").classList.remove("hidden");
 
-    for (let step of steps) {
-        status.innerText = step;
-        await new Promise(r => setTimeout(r, 800));
+    let steps = ["t1","t2","t3","t4"];
+
+    for(let id of steps){
+        document.getElementById(id).classList.add("active");
+        await new Promise(r => setTimeout(r,600));
     }
 
     const url = document.getElementById("urlInput").value;
@@ -68,18 +99,20 @@ async function scanURL() {
 
     const data = await response.json();
 
-    status.innerText = "Analysis complete";
-
     resultBox.classList.remove("hidden");
 
     let risk = Math.round((data.confidence || data.probability || 0) * 100);
 
+    const resultText = document.getElementById("resultText");
+    const riskFill = document.getElementById("riskFill");
+    const riskPercent = document.getElementById("riskPercent");
+
     if(data.label === "safe"){
-        resultText.innerText = "✔️ Safe";
+        resultText.innerText = "✔ Safe";
         resultBox.className = "result-box safe";
     }
     else if(data.label === "suspicious"){
-        resultText.innerText = "⚠️ Suspicious";
+        resultText.innerText = "⚠ Suspicious";
         resultBox.className = "result-box suspicious";
     }
     else{
@@ -87,16 +120,24 @@ async function scanURL() {
         resultBox.className = "result-box danger";
     }
 
-   riskFill.style.width = "0%";
-
-setTimeout(() => {
     riskFill.style.width = risk + "%";
-}, 200);
     riskPercent.innerText = risk + "% risk";
+
+    // Expanded Link
+    document.getElementById("expandedBox").classList.remove("hidden");
+    document.getElementById("expandedLink").innerText = data.expanded_url || "Original link";
+
+    // Confidence
+    document.getElementById("confidenceBox").classList.remove("hidden");
+
+    document.getElementById("structBar").style.width = ((data.structure || 0.5)*100) + "%";
+    document.getElementById("domainBar").style.width = ((data.domain || 0.5)*100) + "%";
+    document.getElementById("aiBar").style.width = ((data.behaviour || 0.5)*100) + "%";
 
     btn.disabled = false;
     btn.innerText = "Scan Now";
 }
+
 </script>
 
 </body>
