@@ -4,72 +4,95 @@
     <meta charset="UTF-8">
     <title>AI Phish Guard</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
 <div class="container">
 
-    <h1>🛡 AI Phish Guard</h1>
-    <p class="subtitle">Zero-shot phishing detection API</p>
+    <h1>🛡️ AI Phish Guard</h1>
+    <p class="subtitle">Smart phishing detection powered by AI</p>
 
     <div class="scan-box">
-        <input id="urlInput" placeholder="Paste suspicious link here...">
-
-        <button onclick="scanURL()">SCAN NOW</button>
+        <input id="urlInput" placeholder="Enter URL to scan..." />
+        <button onclick="scanURL()" id="scanBtn">Scan Now</button>
     </div>
 
-    <div id="loader" class="loader hidden"></div>
+    <div id="scanStatus" class="scan-status"></div>
 
-    <div id="resultBox" class="result hidden">
+    <div id="resultBox" class="result-box hidden">
         <h2 id="resultText"></h2>
-
         <div class="risk-bar">
-            <div id="riskFill" class="risk-fill"></div>
+            <div id="riskFill"></div>
         </div>
-
         <p id="riskPercent"></p>
     </div>
 
 </div>
 
 <script>
-
 async function scanURL() {
 
-    let url = document.getElementById("urlInput").value;
+    const btn = document.getElementById("scanBtn");
+    const status = document.getElementById("scanStatus");
+    const resultBox = document.getElementById("resultBox");
+    const resultText = document.getElementById("resultText");
+    const riskFill = document.getElementById("riskFill");
+    const riskPercent = document.getElementById("riskPercent");
 
-    if (!url) return;
+    btn.disabled = true;
+    btn.innerText = "Scanning...";
 
-    document.getElementById("loader").classList.remove("hidden");
-    document.getElementById("resultBox").classList.add("hidden");
+    resultBox.classList.add("hidden");
 
-    const response = await fetch("/predict", {
+    const steps = [
+        "Initializing security shield...",
+        "Expanding domain...",
+        "Analyzing patterns...",
+        "AI decision engine running..."
+    ];
+
+    for (let step of steps) {
+        status.innerText = step;
+        await new Promise(r => setTimeout(r, 800));
+    }
+
+    const url = document.getElementById("urlInput").value;
+
+    const response = await fetch("/scan", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ url: url })
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({url})
     });
 
     const data = await response.json();
 
-    document.getElementById("loader").classList.add("hidden");
-    document.getElementById("resultBox").classList.remove("hidden");
+    status.innerText = "Analysis complete";
+
+    resultBox.classList.remove("hidden");
 
     let risk = Math.round(data.risk * 100);
 
-    document.getElementById("riskFill").style.width = risk + "%";
-    document.getElementById("riskPercent").innerText = risk + "% risk";
-
-    if(data.prediction === "phishing"){
-        document.getElementById("resultText").innerText = "⚠️ PHISHING DETECTED";
-        document.getElementById("resultBox").className = "result danger";
-    } else {
-        document.getElementById("resultText").innerText = "✅ SAFE";
-        document.getElementById("resultBox").className = "result safe";
+    if(data.label === "safe"){
+        resultText.innerText = "✔️ Safe";
+        resultBox.className = "result-box safe";
+    }
+    else if(data.label === "suspicious"){
+        resultText.innerText = "⚠️ Suspicious";
+        resultBox.className = "result-box suspicious";
+    }
+    else{
+        resultText.innerText = "🚨 Phishing Detected";
+        resultBox.className = "result-box danger";
     }
 
-}
+    riskFill.style.width = risk + "%";
+    riskPercent.innerText = risk + "% risk";
 
+    btn.disabled = false;
+    btn.innerText = "Scan Now";
+}
 </script>
 
 </body>

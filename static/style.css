@@ -1,7 +1,7 @@
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #667eea, #764ba2);
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #2b3a67, #5c4d9b);
     height: 100vh;
     display: flex;
     align-items: center;
@@ -11,83 +11,83 @@ body {
 .container {
     text-align: center;
     color: white;
+    width: 90%;
+    max-width: 500px;
+}
+
+h1 {
+    font-size: 40px;
+    margin-bottom: 10px;
 }
 
 .subtitle {
+    opacity: 0.8;
     margin-bottom: 30px;
 }
 
 .scan-box {
     display: flex;
     gap: 10px;
-    justify-content: center;
+    margin-bottom: 20px;
 }
 
 input {
-    padding: 15px;
-    width: 300px;
+    flex: 1;
+    padding: 14px;
     border-radius: 30px;
     border: none;
-    outline: none;
+    font-size: 16px;
 }
 
 button {
-    padding: 15px 25px;
+    padding: 14px 24px;
     border-radius: 30px;
     border: none;
-    background: #ff4d5a;
+    background: #ff4d6d;
     color: white;
     font-weight: bold;
     cursor: pointer;
+    transition: 0.3s;
 }
 
 button:hover {
-    background: #ff2e3f;
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(255,77,109,0.6);
 }
 
-.loader {
-    margin: 30px auto;
-    border: 5px solid #eee;
-    border-top: 5px solid #ff4d5a;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    animation: spin 1s linear infinite;
+.scan-status {
+    margin: 15px 0;
+    font-size: 14px;
+    opacity: 0.85;
 }
+
+.result-box {
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 15px;
+    transition: 0.5s;
+}
+
+.safe { background: #2ecc71; }
+.suspicious { background: #f1c40f; }
+.danger { background: #e74c3c; }
 
 .hidden {
     display: none;
 }
 
-@keyframes spin {
-    100% { transform: rotate(360deg); }
-}
-
-.result {
-    margin-top: 30px;
-    padding: 20px;
-    border-radius: 20px;
-}
-
-.safe {
-    background: #2ecc71;
-}
-
-.danger {
-    background: #ff4d5a;
-}
-
 .risk-bar {
-    width: 300px;
-    height: 20px;
-    background: #ddd;
-    margin: 15px auto;
-    border-radius: 20px;
+    width: 100%;
+    height: 12px;
+    background: rgba(255,255,255,0.3);
+    border-radius: 10px;
+    margin-top: 10px;
     overflow: hidden;
 }
 
-.risk-fill {
+#riskFill {
     height: 100%;
     width: 0%;
-    background: linear-gradient(to right, green, yellow, red);
+    background: white;
+    transition: 1s ease-in-out;
 }
