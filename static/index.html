@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>AI Phish Guard</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/static/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 
@@ -72,7 +72,7 @@ async function scanURL() {
 
     resultBox.classList.remove("hidden");
 
-    let risk = Math.round(data.risk * 100);
+    let risk = Math.round((data.confidence || data.probability || 0) * 100);
 
     if(data.label === "safe"){
         resultText.innerText = "✔️ Safe";
