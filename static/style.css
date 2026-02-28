@@ -2,13 +2,14 @@
 
 body {
     margin: 0;
-    font-family: 'Inter', sans-serif;
-    background: linear-gradient(-45deg, #1f2a44, #2c3e70, #3a3f6b, #1a2742);
-    background-size: 400% 400%;
-    animation: gradientShift 20s ease infinite;
-    overflow-x: hidden;
-    position: relative;
+    font-family: 'Segoe UI', sans-serif;
     color: white;
+    overflow-x: hidden;
+    background: linear-gradient(-45deg, #0f172a, #1e293b, #312e81, #0f172a);
+    background-size: 400% 400%;
+    animation: gradientMove 18s ease infinite;
+    min-height: 100vh;
+    position: relative;
 }
 
 /* Animated Gradient */
@@ -25,23 +26,24 @@ body::before {
     width: 200%;
     height: 200%;
     background: radial-gradient(white 1px, transparent 1px);
-    background-size: 80px 80px;
+    background-size: 50px 50px;
     opacity: 0.08;
-    animation: drift 120s linear infinite;
-    z-index: -1;
+    animation: starDrift 120s linear infinite;
+    pointer-events: none;
+    z-index: 0;
 }
 
-@keyframes drift {
-    0% { transform: translate(0,0); }
-    50% { transform: translate(-100px,-100px); }
-    100% { transform: translate(0,0); }
+@keyframes starDrift {
+    from { transform: translate(0,0); }
+    to { transform: translate(-200px,-300px); }
 }
-
 /* -------------------- CONTAINER -------------------- */
 
 .container {
     text-align: center;
     padding: 60px 20px;
+    position: relative;
+z-index: 1;
 }
 
 /* -------------------- TITLE -------------------- */
@@ -174,4 +176,9 @@ button:hover {
 
 .hidden {
     display: none;
+}
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
