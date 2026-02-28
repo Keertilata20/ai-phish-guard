@@ -27,5 +27,4 @@ async def scan_url(request: UrlRequest):
     risk = "HIGH" if score > 1 else "LOW"
     return {"analysis": {"phishing_score": min(score/3, 1.0), "risk": risk}}
 
-if __name__ == "__main__":
-    uvicorn.run(app, host="127.0.0.1", port=8000)
+
