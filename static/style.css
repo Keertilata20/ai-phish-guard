@@ -1,25 +1,24 @@
-/* -------------------- GLOBAL -------------------- */
-
-body {
+/* ---------- RESET ---------- */
+* {
     margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ---------- BACKGROUND ---------- */
+body {
     font-family: 'Segoe UI', sans-serif;
     color: white;
+    min-height: 100vh;
     overflow-x: hidden;
+
     background: linear-gradient(-45deg, #0f172a, #1e293b, #312e81, #0f172a);
     background-size: 400% 400%;
     animation: gradientMove 18s ease infinite;
-    min-height: 100vh;
     position: relative;
 }
 
-/* Animated Gradient */
-@keyframes gradientShift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-/* Floating Stars */
+/* Moving stars layer */
 body::before {
     content: "";
     position: fixed;
@@ -27,130 +26,113 @@ body::before {
     height: 200%;
     background: radial-gradient(white 1px, transparent 1px);
     background-size: 50px 50px;
-    opacity: 0.08;
+    opacity: 0.07;
     animation: starDrift 120s linear infinite;
     pointer-events: none;
     z-index: 0;
 }
 
+/* Gradient movement */
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Stars drifting */
 @keyframes starDrift {
     from { transform: translate(0,0); }
     to { transform: translate(-200px,-300px); }
 }
-/* -------------------- CONTAINER -------------------- */
 
+/* ---------- MAIN CONTAINER ---------- */
 .container {
     text-align: center;
-    padding: 60px 20px;
+    padding-top: 80px;
     position: relative;
-z-index: 1;
+    z-index: 1;
 }
 
-/* -------------------- TITLE -------------------- */
-
+/* ---------- TITLE ---------- */
 h1 {
-    font-size: 42px;
+    font-size: 3rem;
+    font-weight: 600;
     margin-bottom: 10px;
 }
 
 .subtitle {
-    opacity: 0.8;
+    opacity: 0.85;
     margin-bottom: 30px;
+    font-size: 1.1rem;
 }
 
-/* -------------------- INPUT -------------------- */
-
-.input-area {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 20px;
-}
-
+/* ---------- INPUT ---------- */
 input {
-    width: 400px;
-    padding: 14px;
-    border-radius: 40px;
+    width: 420px;
+    padding: 15px;
+    border-radius: 30px;
     border: none;
-    font-size: 16px;
     outline: none;
+    font-size: 1rem;
 }
 
-/* -------------------- BUTTON -------------------- */
-
+/* ---------- BUTTON ---------- */
 button {
-    background: #ff4c6d;
-    color: white;
+    padding: 15px 25px;
+    border-radius: 30px;
     border: none;
-    padding: 14px 24px;
-    border-radius: 40px;
-    font-size: 16px;
+    background: #ff4d6d;
+    color: white;
+    font-weight: bold;
     cursor: pointer;
-    transition: 0.3s ease;
+    margin-left: 10px;
+    transition: 0.3s;
 }
 
 button:hover {
     transform: scale(1.05);
+    background: #ff2d55;
 }
 
-/* -------------------- SCANNING STATUS -------------------- */
-
+/* ---------- SCAN STATUS ---------- */
 #scanStatus {
-    margin-top: 10px;
+    margin-top: 20px;
     opacity: 0.8;
-    animation: pulse 2s infinite;
 }
 
-@keyframes pulse {
-    0% { opacity: 0.5; }
-    50% { opacity: 1; }
-    100% { opacity: 0.5; }
-}
-
-/* -------------------- RESULT BOX -------------------- */
-
+/* ---------- RESULT BOX ---------- */
 .result-box {
     margin: 40px auto;
-    padding: 30px;
+    width: 70%;
+    padding: 40px;
     border-radius: 20px;
-    width: 60%;
-    transition: all 0.5s ease;
-    position: relative;
+    text-align: center;
+    transition: 0.5s;
+    box-shadow: 0 0 40px rgba(255,255,255,0.08);
 }
 
-/* Glow animation */
-@keyframes glow {
-    0% { box-shadow: 0 0 20px rgba(255,255,255,0.1); }
-    50% { box-shadow: 0 0 40px rgba(255,255,255,0.3); }
-    100% { box-shadow: 0 0 20px rgba(255,255,255,0.1); }
-}
-
-/* SAFE */
+/* ---------- SAFE ---------- */
 .safe {
-    background: #38c172;
-    animation: glow 3s infinite;
+    background: #3ac37a;
 }
 
-/* SUSPICIOUS */
+/* ---------- SUSPICIOUS ---------- */
 .suspicious {
-    background: #f6ad55;
-    animation: glow 3s infinite;
+    background: #f4a261;
 }
 
-/* PHISHING */
+/* ---------- DANGER ---------- */
 .danger {
-    background: #e3342f;
-    animation: glow 3s infinite;
+    background: #e63946;
 }
 
-/* -------------------- RISK BAR -------------------- */
-
+/* ---------- PROGRESS BAR ---------- */
 .risk-bar {
-    width: 80%;
-    height: 12px;
-    background: rgba(255,255,255,0.3);
-    border-radius: 20px;
-    margin: 20px auto;
+    width: 100%;
+    height: 10px;
+    background: rgba(255,255,255,0.25);
+    border-radius: 10px;
+    margin-top: 20px;
     overflow: hidden;
 }
 
@@ -161,24 +143,13 @@ button:hover {
     transition: 1s ease-in-out;
 }
 
-/* -------------------- TEXT -------------------- */
-
-#resultText {
-    font-size: 24px;
-    margin-bottom: 10px;
-}
-
+/* ---------- RISK TEXT ---------- */
 #riskPercent {
     margin-top: 10px;
+    font-size: 1.1rem;
 }
 
-/* -------------------- HIDDEN -------------------- */
-
+/* ---------- HIDDEN ---------- */
 .hidden {
     display: none;
-}
-@keyframes gradientMove {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
 }
