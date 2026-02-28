@@ -87,7 +87,11 @@ async function scanURL() {
         resultBox.className = "result-box danger";
     }
 
+   riskFill.style.width = "0%";
+
+setTimeout(() => {
     riskFill.style.width = risk + "%";
+}, 200);
     riskPercent.innerText = risk + "% risk";
 
     btn.disabled = false;

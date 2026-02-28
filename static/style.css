@@ -89,5 +89,5 @@ button:hover {
     height: 100%;
     width: 0%;
     background: white;
-    transition: 1s ease-in-out;
+    transition: width 1s ease-in-out;
 }
