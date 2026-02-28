@@ -95,7 +95,7 @@ All explanations dynamically translate.
 ## 📦 Installation (Local Setup)
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/ai-phish-guard.git
+git clone https://github.com/Keertilata20/ai-phish-guard.git
 cd ai-phish-guard
 pip install -r requirements.txt
 uvicorn main:app --reload
