@@ -16,16 +16,16 @@ It provides users with a clear visual explanation of risk instead of just saying
 
 ## ✨ Features
 
-- 🔍 AI-powered phishing detection
-- 🌐 Short link expansion awareness
-- 🧠 Behaviour-based risk analysis
-- 🧱 Domain structure analysis
-- 📊 Confidence breakdown
-- 📜 Human-readable risk explanation
+-  AI-powered phishing detection
+-  Short link expansion awareness
+-  Behaviour-based risk analysis
+-  Domain structure analysis
+-  Confidence breakdown
+-  Human-readable risk explanation
 - 🇮🇳 Hindi phishing detection
-- 🌏 Dual Language Mode (English / हिंदी)
-- 📱 Mobile responsive interface
-- 🎬 Animated scan timeline
+-  Dual Language Mode (English / हिंदी)
+-  Mobile responsive interface
+-  Animated scan timeline
 
 ---
 
