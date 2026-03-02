@@ -22,7 +22,7 @@ It provides users with a clear visual explanation of risk instead of just saying
 -  Domain structure analysis
 -  Confidence breakdown
 -  Human-readable risk explanation
-- 🇮🇳 Hindi phishing detection
+-  Hindi Phishing Detection
 -  Dual Language Mode (English / हिंदी)
 -  Mobile responsive interface
 -  Animated scan timeline
