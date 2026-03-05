@@ -1,7 +1,11 @@
 <p align="center">
-  <img src="https://img.shields.io/badge/Cybersecurity-Phishing%20Detection-blue?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/Backend-FastAPI-green?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/Deployment-Render-purple?style=for-the-badge" />
+<img src="https://img.shields.io/badge/Cybersecurity-Phishing%20Detection-blue?style=for-the-badge" />
+<img src="https://img.shields.io/badge/Backend-FastAPI-green?style=for-the-badge" />
+<img src="https://img.shields.io/badge/Deployment-Render-purple?style=for-the-badge" />
+
+<a href="https://stats.uptimerobot.com/WrxGaS60Gb">
+<img src="https://img.shields.io/badge/Uptime-monitored%20by%20UptimeRobot-red?style=for-the-badge"/>
+</a>
 </p>
 
 <h1 align="center">🛡 AI Phish Guard</h1>
