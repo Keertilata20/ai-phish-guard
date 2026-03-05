@@ -43,16 +43,16 @@ Modern phishing attacks are evolving beyond simple fake login pages.
 
 Attackers increasingly exploit:
 
-• Regional languages (such as Hindi)
-• Unicode spoofing techniques
-• Shortened links to hide malicious domains
-• Psychological urgency tactics
+- Regional languages (such as Hindi)
+- Unicode spoofing techniques
+- Shortened links to hide malicious domains
+- Psychological urgency tactics
 
 Traditional phishing detection systems often miss:
 
-• Language-targeted scams
-• Script-based deception
-• Behavioral manipulation patterns
+- Language-targeted scams
+- Script-based deception
+- Behavioral manipulation patterns
 
 AI Phish Guard explores whether behavioral signals and multilingual analysis can help detect these attacks earlier.
 
