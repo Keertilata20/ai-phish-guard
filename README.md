@@ -1,5 +1,14 @@
 # 🛡️ AI Phish Guard
 
+![Prototype](https://img.shields.io/badge/project-research--prototype-blue)
+![Python](https://img.shields.io/badge/backend-python-green)
+![FastAPI](https://img.shields.io/badge/framework-fastapi-black)
+![Cybersecurity](https://img.shields.io/badge/domain-cybersecurity-red)
+![Phishing Detection](https://img.shields.io/badge/security-phishing--detection-purple)
+![Multilingual Security](https://img.shields.io/badge/feature-multilingual-orange)
+[![Live Demo](https://img.shields.io/badge/demo-live-brightgreen)](https://ai-phish-guard.onrender.com)
+
+
 #### Detecting deception before it detects you.
 
 AI Phish Guard is a context-aware phishing detection system designed to identify multilingual and behaviour-driven phishing attacks using structural URL analysis and social-engineering pattern detection.
