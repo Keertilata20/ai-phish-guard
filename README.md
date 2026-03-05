@@ -36,7 +36,29 @@ This project explores whether behavioral risk signals and multilingual pattern a
 -  Visual scan timeline
 
 ---
+## Detection Pipeline
 
+''' User URL Input
+      │
+      ▼
+Short Link Expansion Check
+      │
+      ▼
+Structural URL Analysis
+      │
+      ▼
+Behavioral Risk Signal Detection
+      │
+      ▼
+Multilingual Phishing Pattern Analysis
+      │
+      ▼
+Risk Score Generation
+      │
+      ▼
+Human-Readable Explanation '''
+
+---
 ## Threat Landscape
 
 Modern phishing attacks are evolving beyond simple fake login pages.
