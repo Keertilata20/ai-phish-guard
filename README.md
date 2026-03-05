@@ -38,25 +38,16 @@ This project explores whether behavioral risk signals and multilingual pattern a
 ---
 ## Detection Pipeline
 
-''' User URL Input
-      │
-      ▼
-Short Link Expansion Check
-      │
-      ▼
-Structural URL Analysis
-      │
-      ▼
-Behavioral Risk Signal Detection
-      │
-      ▼
-Multilingual Phishing Pattern Analysis
-      │
-      ▼
-Risk Score Generation
-      │
-      ▼
-Human-Readable Explanation '''
+```mermaid
+flowchart TD
+    A[User URL Input] --> B[Short Link Expansion]
+    B --> C[URL Structure Analysis]
+    C --> D[Phishing Keyword Detection]
+    D --> E[Hindi Scam Pattern Detection]
+    E --> F[Unicode Spoof Detection]
+    F --> G[Risk Score Engine]
+    G --> H[User Risk Explanation]
+```
 
 ---
 ## Threat Landscape
