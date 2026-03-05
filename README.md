@@ -1,15 +1,24 @@
-# 🛡️ AI Phish Guard
+<p align="center">
+  <img src="https://img.shields.io/badge/Cybersecurity-Phishing%20Detection-blue?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Backend-FastAPI-green?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Deployment-Render-purple?style=for-the-badge" />
+</p>
 
-![Prototype](https://img.shields.io/badge/project-research--prototype-blue)
-![Python](https://img.shields.io/badge/backend-python-green)
-![FastAPI](https://img.shields.io/badge/framework-fastapi-black)
-![Cybersecurity](https://img.shields.io/badge/domain-cybersecurity-red)
-![Phishing Detection](https://img.shields.io/badge/security-phishing--detection-purple)
-![Multilingual Security](https://img.shields.io/badge/feature-multilingual-orange)
-[![Live Demo](https://img.shields.io/badge/demo-live-brightgreen)](https://ai-phish-guard.onrender.com)
+<h1 align="center">🛡 AI Phish Guard</h1>
 
+<p align="center">
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=24&pause=1000&color=00C853&center=true&vCenter=true&width=600&lines=AI-powered+Phishing+Detection;Analyzing+Suspicious+URLs;Detecting+Multilingual+Scam+Patterns;Protecting+Users+from+Social+Engineering" />
+</p>
 
-#### Detecting deception before it detects you.
+<p align="center">
+Detecting deception before it reaches the user.
+</p>
+
+<p align="center">
+  <a href="https://ai-phish-guard.onrender.com">
+    <img src="https://img.shields.io/badge/Live%20Demo-Open%20App-success?style=for-the-badge">
+  </a>
+</p>
 
 AI Phish Guard is a context-aware phishing detection system designed to identify multilingual and behaviour-driven phishing attacks using structural URL analysis and social-engineering pattern detection.
 
