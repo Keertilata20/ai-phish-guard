@@ -36,7 +36,8 @@ This project explores whether behavioral risk signals and multilingual pattern a
 -  Visual scan timeline
 
 ---
-## Detection Pipeline
+## System Architecture
+#### Detection Pipeline
 ```mermaid
 flowchart TD
     A[User URL Input] --> B[Short Link Expansion]
