@@ -1,8 +1,8 @@
 # 🛡️ AI Phish Guard
 
-Detecting deception before it detects you.
+#### Detecting deception before it detects you.
 
-AI Phish Guard is a phishing link detection web app that analyses suspicious URLs using behavioral signals, structural patterns, and multilingual phishing indicators — including Hindi-targeted scam attempts.
+AI Phish Guard is a context-aware phishing detection system designed to identify multilingual and behaviour-driven phishing attacks using structural URL analysis and social-engineering pattern detection.
 
 It provides users with a clear visual explanation of risk instead of just saying “safe” or “dangerous”.
 
@@ -14,61 +14,49 @@ It provides users with a clear visual explanation of risk instead of just saying
 
 ---
 
+## Research Motivation
+
+Many phishing detection systems rely primarily on blacklists or static pattern matching. However, modern phishing campaigns increasingly use localized language targeting and social engineering tactics.
+
+This project explores whether behavioral risk signals and multilingual pattern analysis can improve early phishing detection for emerging digital populations.
+
+---
+
 ##  Features
 
--  AI-powered phishing detection
+-  Context-aware phishing detection
 -  Short link expansion awareness
--  Behaviour-based risk analysis
--  Domain structure analysis
+-  Behavioural phishing signal analysis
+-  Domain structure anamoly detection
 -  Confidence breakdown
 -  Human-readable risk explanation
--  Hindi Phishing Detection
--  Dual Language Mode (English / हिंदी)
+-  Multilingual phishing detection (Hindi/English)
+-  Unicode spoofing detection
 -  Mobile responsive interface
--  Animated scan timeline
+-  Visual scan timeline
 
 ---
 
-##  Why This Project Matters
-
-Many phishing attacks now target regional language users.
-
-Traditional tools miss:
-- Hindi phishing keywords
-- Unicode spoofing
-- Language-targeted urgency scams
-
-AI Phish Guard bridges that gap.
-
----
-
-
-## Cybersecurity Context
+## Threat Landscape
 
 Modern phishing attacks are evolving beyond simple fake login pages.
 
-Attackers now exploit:
+Attackers increasingly exploit:
 
-- Regional languages (like Hindi)
-- Unicode deception
-- Shortened links
-- Psychological urgency tactics
+• Regional languages (such as Hindi)
+• Unicode spoofing techniques
+• Shortened links to hide malicious domains
+• Psychological urgency tactics
 
-Traditional detection tools often fail to detect:
+Traditional phishing detection systems often miss:
 
-- Language-targeted scams
-- Script-based deception
-- Behavioral urgency signals
+• Language-targeted scams
+• Script-based deception
+• Behavioral manipulation patterns
 
-AI Phish Guard is designed as a **lightweight phishing threat detection layer** that identifies these subtle attack patterns before user interaction.
+AI Phish Guard explores whether behavioral signals and multilingual analysis can help detect these attacks earlier.
 
-It focuses on:
-
-- Early risk signaling
-- Behavioral phishing indicators
-- Multilingual targeting detection
-
-This makes it especially relevant for emerging digital populations where localized phishing is rising.
+---
 
 ##  Tech Stack
 
@@ -85,19 +73,8 @@ Deployment:
 
 ---
 
-##  Example Detection
 
-The system can flag:
-
-- Shortened phishing links  
-- Urgent scam language  
-- Suspicious domain structures  
-- Hindi phishing wording  
-- Unicode deception  
-
----
-
-##  Detection Signals Used
+##  Detection Signals 
 
 | Signal | Purpose |
 |-------|--------|
@@ -109,6 +86,20 @@ The system can flag:
 
 ---
 
+##  Example Detection
+
+The system can flag:
+
+- Shortened phishing links  
+- Urgent scam language  
+- Suspicious domain structures  
+- Hindi phishing wording  
+- Unicode deception  
+
+
+
+---
+
 ##  Language Support
 
 Users can switch between:
@@ -117,6 +108,29 @@ Users can switch between:
 - Hindi Mode
 
 All explanations dynamically translate.
+
+---
+
+## Limitations
+
+This prototype currently relies on heuristic-based detection signals such as structural URL analysis, keyword detection, and behavioural risk indicators.
+
+It does not yet incorporate large-scale machine learning models, live threat intelligence feeds, or dataset-driven training pipelines.
+As a result, detection accuracy may vary for novel phishing techniques that do not match the current signal patterns.
+
+--- 
+
+## Future Improvements
+
+Several extensions could strengthen the system and improve detection capabilities:
+
+- Integration of machine learning models trained on phishing URL datasets
+- Real-time threat intelligence feeds for known malicious domains
+- Expanded multilingual phishing detection beyond Hindi
+- Browser extension integration for real-time user protection
+- Improved Unicode spoof detection using character similarity analysis
+- Behavioral phishing pattern learning from real-world datasets
+- Risk scoring models that combine multiple signals dynamically
 
 ---
 
