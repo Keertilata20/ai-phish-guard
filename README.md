@@ -37,7 +37,6 @@ This project explores whether behavioral risk signals and multilingual pattern a
 
 ---
 ## Detection Pipeline
-
 ```mermaid
 flowchart TD
     A[User URL Input] --> B[Short Link Expansion]
@@ -48,7 +47,6 @@ flowchart TD
     F --> G[Risk Score Engine]
     G --> H[User Risk Explanation]
 ```
-
 ---
 ## Threat Landscape
 
